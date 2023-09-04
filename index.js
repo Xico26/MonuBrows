@@ -25,7 +25,7 @@ const userRoutes = require("./routes/users")
 const dbURL = process.env.DB_URL
 
 async function main() {
-  await mongoose.connect("mongodb://localhost:27017/monubrows");
+  await mongoose.connect(dbURL);
   console.log("Mongo is open!");
 }
 
@@ -42,7 +42,7 @@ app.use(mongoSantize({
 }))
 
 const store = MongoStore.create({
-    mongoUrl: "mongodb://localhost:27017/monubrows",
+    mongoUrl: dbURL,
     crypto: {
         secret: process.env.SECRET
     },
