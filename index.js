@@ -44,7 +44,7 @@ app.use(mongoSantize({
 const store = MongoStore.create({
     mongoUrl: "mongodb://localhost:27017/monubrows",
     crypto: {
-        secret: "thisisasecret"
+        secret: process.env.SECRET
     },
     touchAfter: 24 * 3600
 })
@@ -56,7 +56,7 @@ store.on("e", function(e) {
 const sessionConfig = {
     store: store,
     name: "session",
-    secret: "thisisasecret",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
