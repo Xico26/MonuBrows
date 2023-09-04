@@ -1,0 +1,79 @@
+<% layout("./layouts/boilerplate")%>
+<div class="row">
+  <h1 class="text-center">New Monument</h1>
+  <div class="col-md-6 offset-md-3">
+    <form action="/monuments" method="POST" class="mb-3 needs-validation" novalidate enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" type="text" name="monument[name]" id="name" required/>
+        <div class="invalid-feedback">
+          Please provide a name for the monument.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <div class="input-group">
+          <span class="input-group-text">€</span>
+          <input type="text" class="form-control" name="monument[price]" id="price" placeholder="0.00" required/>
+          <div class="invalid-feedback">
+            Please provide a valid price for the monument.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="city">City</label>
+        <input class="form-control" type="text" name="monument[city]" id="city" required/>
+        <div class="invalid-feedback">
+          Please provide a city.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="country">Country</label>
+        <input class="form-control" type="text" name="monument[country]" id="country" required/>
+        <div class="invalid-feedback">
+          Please provide a valid country.
+        </div>
+      </div>
+      <div class="mb-3">
+        <div id="map" style="width: 700px; height: 350px;"></div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-6">
+          <label class="form-label" for="latitude">Latitude</label>
+          <input class="form-control" type="text" name="monument[latitude]" id="latitude" required/>
+          <div class="invalid-feedback">
+            Please provide a valid latitude.
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="form-label" for="longitude">Longitude</label>
+          <input class="form-control" type="text" name="monument[longitude]" id="longitude" required/>
+          <div class="invalid-feedback">
+            Please provide a valid longitude.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="image">Upload Images</label>
+        <input type="file" name="monument[image]" id="image" class="form-control" multiple required>
+        <div class="invalid-feedback">
+          Please add some images.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" name="monument[description]" id="description" required></textarea>
+        <div class="invalid-feedback">
+          Please provide a description for the monument.
+        </div>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-success">Add Monument</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>"
+</script>
+<script src="/javascripts/newMap.js"></script>

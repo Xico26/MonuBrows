@@ -1,0 +1,98 @@
+<% layout("./layouts/boilerplate")%>
+<div class="row">
+  <h1 class="text-center">Edit Monument</h1>
+  <div class="col-md-6 offset-md-3">
+    <form action="/monuments/<%= monument._id %>?_method=PUT" method="POST" class="mb-3 needs-validation" novalidate enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" type="text" name="monument[name]" id="name" value="<%= monument.name %>" required/>
+        <div class="invalid-feedback">
+          Please provide a name for the monument.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <div class="input-group">
+          <span class="input-group-text">€</span>
+          <input type="text" class="form-control" name="monument[price]" id="price" value="<%= monument.price %>" required/>
+          <div class="invalid-feedback">
+            Please provide a valid price for the monument.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="city">City</label>
+        <input class="form-control" type="text" name="monument[city]" id="city" value="<%= monument.city %>" required/>
+        <div class="invalid-feedback">
+          Please provide a city.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="country">Country</label>
+        <input class="form-control" type="text" name="monument[country]" id="country" value="<%= monument.country %>" required/>
+        <div class="invalid-feedback">
+          Please provide a valid country.
+        </div>
+      </div>
+      <div class="mb-3">
+        <div id="map" style="width: 700px; height: 350px;"></div>
+      </div>
+      <div class="mb-3 row">
+        <div class="col-6">
+          <label class="form-label" for="latitude">Latitude</label>
+          <input class="form-control" type="text" name="monument[latitude]" id="latitude" value="<%= monument.geometry.coordinates[1] %>" required/>
+          <div class="invalid-feedback">
+            Please provide a valid latitude.
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="form-label" for="longitude">Longitude</label>
+          <input class="form-control" type="text" name="monument[longitude]" id="longitude" value="<%= monument.geometry.coordinates[0] %>" required/>
+          <div class="invalid-feedback">
+            Please provide a valid longitude.
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" name="monument[description]" id="description" required><%= monument.description %></textarea>
+        <div class="invalid-feedback">
+          Please provide a description for the monument.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="image">Upload Images</label>
+        <input type="file" name="monument[image]" id="image" class="form-control" multiple>
+      </div>
+      <div class="mb-3">
+        <% monument.images.forEach(function(image, i) { %>
+          <img src="<%= image.thumbnail %>" class="img-thumbnail" alt="">
+          <div class="form-check form-check-inline">
+            <input type="checkbox" class="form-check-input" name="deleteImages[]" value="<%= image.fileName%>" id="image<%=i%>">
+            <label class="form-label" for="image<%=i%>">Delete Image</label>
+          </div>
+        <% }) %>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-success">Update Monument</button>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-6">
+        <div class="d-grid gap-2">
+          <a href="/monuments/<%= monument._id %>" class="btn btn-primary">Back to Monument</a>
+        </div>
+      </div>
+      <div class="col-6 mb-3">
+        <div class="d-grid gap-2">
+          <a href="/monuments" class="btn btn-secondary">All Monuments</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>"
+  const monument = <%- JSON.stringify(monument) %>
+</script>
+<script src="/javascripts/editMap.js"></script>

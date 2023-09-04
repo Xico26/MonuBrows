@@ -1,0 +1,87 @@
+<% layout("./layouts/boilerplate")%>
+<div id="indexMap" class="mb-3" style='width: 100%; height: 500px;'></div>
+<h1 class="mb-3 text-center">Monument List</h1>
+<div class="container mb-3">
+  <form class="d-flex" role="search" action="/monuments/search" method="POST">
+    <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="query">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-md-3 mt-3">
+      <h2>Filters</h2>
+        <form action="/monuments/filter" method="POST" class="mb-2">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Portugal" id="PT">
+            <label class="form-label" for="PT">Portugal</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Spain" id="ES">
+            <label class="form-label" for="ES">Spain</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="France" id="FR">
+            <label class="form-label" for="FR">France</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Belgium" id="BE">
+            <label class="form-label" for="BE">Belgium</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Italy" id="IT">
+            <label class="form-label" for="IT">Italy</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Germany" id="DE">
+            <label class="form-label" for="DE">Germany</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="Greece" id="GR">
+            <label class="form-label" for="GR">Greece</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="United Kingdom" id="UK">
+            <label class="form-label" for="UK">United Kingdom</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="selectCountries[]" value="United States of America" id="US">
+            <label class="form-label" for="US">United States of America</label>
+          </div>
+          <button class="btn btn-primary">Filter</button>
+        </form>
+        <a href="/monuments" class="btn btn-secondary mb-3">Clear Filters</a>
+    </div>
+    <div class="col-md-9">
+      <% for (let monument of monuments) {%>
+        <div class="container">
+          <a href="/monuments/<%= monument.id %>" class="text-decoration-none">
+            <div class="card mb-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <img src="<%= monument.images[0].indexImg %>" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= monument.name %></h5>
+                    <p class="card-text"><%= monument.description %></p>
+                    <small class="text-secondary"><%= monument.location %></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      <%}%>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>"
+  const monuments = {features: <%- JSON.stringify(monuments) %> }
+</script>
+<script src="/javascripts/indexMap.js"></script>
