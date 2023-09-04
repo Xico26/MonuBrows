@@ -108,7 +108,8 @@ app.use(
                 "data:",
                 "https://res.cloudinary.com/dkticcrbh/",
                 "https://images.unsplash.com",
-                "https://upload.wikimedia.org"
+                "https://upload.wikimedia.org",
+                " https://cdn-icons-png.flaticon.com"
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
         },
